@@ -1,0 +1,96 @@
+#--------------------------------------------
+### get all categories
+GET http://127.0.0.1:8000/rest/v1/categoria/
+Content-Type: application/json
+
+### insert a category
+POST http://127.0.0.1:8000/rest/v1/categoria/
+Content-Type: application/json
+
+{
+    "descripcion": "Esto es una prueba"
+}
+
+### get first category
+GET http://127.0.0.1:8000/rest/v1/categoria/1/
+Content-Type: application/json
+
+### delete first element
+DELETE  http://127.0.0.1:8000/rest/v1/categoria/1/
+Content-Type: application/json
+
+#--------------------------------------------
+#INSERT DATA
+
+### insert category
+POST http://127.0.0.1:8000/rest/v1/categoria/
+Content-Type: application/json
+
+{
+    "descripcion": "Lenguajes"
+}
+
+### insert subcategory
+POST http://127.0.0.1:8000/rest/v1/subcategoria/
+Content-Type: application/json
+
+{
+    "categoria": 1,
+    "descripcion": "Frameworks"
+}
+
+### insert product
+POST http://127.0.0.1:8000/rest/v1/producto/
+Content-Type: application/json
+
+{
+    "codigo": "F001",
+    "descripcion": "Curso de Flask",
+    "subcategoria": 1 
+}
+
+### insert product
+POST http://127.0.0.1:8000/rest/v1/producto/
+Content-Type: application/json
+
+{
+    "codigo": "D001",
+    "descripcion": "Curso de Django",
+    "subcategoria": 1 
+}
+
+### insert proveedor
+POST http://127.0.0.1:8000/rest/v1/proveedor/
+Content-Type: application/json
+
+{
+    "nombre": "Juan",
+    "telefono": "984568978",
+    "email": "juan@juan.com" 
+}
+
+### insert proveedor
+POST http://127.0.0.1:8000/rest/v1/proveedor/
+Content-Type: application/json
+
+{
+    "nombre": "Mario",
+    "telefono": "941568978",
+    "email": "mario@mario.com" 
+}
+
+#--------------------------------------------
+#CHECK DATA
+
+### get all categorias
+GET http://127.0.0.1:8000/rest/v1/categoria/
+Content-Type: application/json
+### get all subcategorias
+GET http://127.0.0.1:8000/rest/v1/subcategoria/
+Content-Type: application/json
+### get all productos
+GET http://127.0.0.1:8000/rest/v1/producto/
+Content-Type: application/json
+### get all proveedores
+GET http://127.0.0.1:8000/rest/v1/proveedor/
+Content-Type: application/json

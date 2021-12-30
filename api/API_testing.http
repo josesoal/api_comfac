@@ -79,6 +79,16 @@ Content-Type: application/json
     "email": "mario@mario.com" 
 }
 
+### insert proveedor
+POST http://127.0.0.1:8000/rest/v1/proveedor/
+Content-Type: application/json
+
+{
+    "nombre": "Maria",
+    "telefono": "941568944",
+    "email": "maria@maria.com" 
+}
+
 #--------------------------------------------
 #CHECK DATA
 
@@ -93,4 +103,14 @@ GET http://127.0.0.1:8000/rest/v1/producto/
 Content-Type: application/json
 ### get all proveedores
 GET http://127.0.0.1:8000/rest/v1/proveedor/
+Content-Type: application/json
+
+### get compras
+GET http://127.0.0.1:8000/rest/v1/compra/
+Content-Type: application/json
+
+#--------------------------------------------
+
+### delete compra
+DELETE  http://127.0.0.1:8000/rest/v1/compra/21/
 Content-Type: application/json

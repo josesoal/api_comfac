@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.models.deletion import CASCADE, DO_NOTHING
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 
 class Categoria( models.Model ):
     descripcion = models.CharField(
@@ -139,6 +141,50 @@ class CompraDetalle( ModeloEdit ):
     class Meta:
         verbose_name_plural = 'detalles de compras'
 
+# signals de compra
+@receiver( post_save, sender=CompraDetalle )
+def vigila_guardar_detalle_compra( sender, instance, **kwargs ):
+    id_producto = instance.producto.id
+    p = Producto.objects.get( id=id_producto )
+    if (p):
+        p.existencia = int(p.existencia) + int(instance.cantidad)
+        p.save()
+
+@receiver( post_delete, sender=CompraDetalle )
+def vigila_eliminar_detalle_compra( sender, instance, **kwargs ):
+    id_producto = instance.producto.id
+    p = Producto.objects.filter( id=id_producto ).first()
+    if (p):
+        p.existencia = int(p.existencia) - int(instance.cantidad)
+        p.save()
+
+class Cliente( models.Model ):
+    nombre = models.CharField(
+        max_length=200,
+        null=False,
+        blank=False,
+        unique=True,
+    )
+    telefono = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+    ) 
+    email = models.TextField(
+        null=True,
+        blank=True,
+    )
+    estado =  models.BooleanField( default=True )
+
+    def __str__( self ):
+        return self.nombre
+    
+    def save( self, **kwargs ):
+        self.nombre = self.nombre.upper()
+        super( Cliente, self ).save()
+    
+    class Meta:
+        verbose_name_plural = "clientes"
 
 
 

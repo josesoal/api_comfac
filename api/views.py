@@ -2,7 +2,7 @@ from django.db.models.query import QuerySet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
 from .models import Categoria, SubCategoria, Producto, Proveedor, \
-    CompraMaestro, CompraDetalle 
+    CompraMaestro, CompraDetalle, Cliente 
 from . import serializer
 
 class CategoriaViewSet( viewsets.ModelViewSet ):
@@ -34,3 +34,8 @@ class CompraDetalleViewSet( viewsets.ModelViewSet ):
     #permission_classes = [IsAuthenticated]
     queryset = CompraDetalle.objects.all().order_by('id')
     serializer_class = serializer.CompraDetalleSerializer
+
+class ClienteViewSet( viewsets.ModelViewSet ):
+    #permission_classes = [IsAuthenticated]
+    queryset = Cliente.objects.all().order_by('nombre')
+    serializer_class = serializer.ClienteSerializer

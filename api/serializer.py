@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Categoria, SubCategoria, Producto, Proveedor, \
-    CompraMaestro, CompraDetalle
+    CompraMaestro, CompraDetalle, Cliente
 
 class CategoriaSerializer( serializers.ModelSerializer ):
     class Meta:
@@ -47,3 +47,8 @@ class CompraMaestroSerializer( serializers.ModelSerializer ):
     class Meta:
         model = CompraMaestro
         fields = ['id', 'fecha', 'proveedor', 'detalle']
+
+class ClienteSerializer( serializers.ModelSerializer ):
+    class Meta:
+        model = Cliente
+        fields = '__all__'

@@ -136,7 +136,7 @@ class CompraDetalle( ModeloEdit ):
         return self.subtotal - self.descuento
     
     def __str__(self):
-        return '{}-{}-{}'.format( self.id, self.maestro, self.producto )
+        return '{}-{}-{}'.format( self.id, self.cabecera, self.producto )
     
     class Meta:
         verbose_name_plural = 'detalles de compras'
@@ -186,5 +186,57 @@ class Cliente( models.Model ):
     class Meta:
         verbose_name_plural = "clientes"
 
+class FacturaMaestro( ModeloEdit ):
+    fecha = models.DateField( null=False, blank=False )
+    cliente = models.ForeignKey( 
+        Cliente, 
+        on_delete=models.RESTRICT
+    )
 
+    def __str__( self ):
+        return str( self.id )
+    
+    class Meta:
+        verbose_name_plural = 'encabezados de facturas'
 
+class FacturaDetalle( ModeloEdit ):
+    cantidad = models.IntegerField( default=0 )
+    precio = models.FloatField( default=0 )
+    descuento = models.FloatField( default=0 )
+    cabecera = models.ForeignKey( 
+        FacturaMaestro, 
+        related_name='detalle', 
+        on_delete=models.CASCADE 
+    )
+    producto = models.ForeignKey( Producto, on_delete=DO_NOTHING )
+
+    @property
+    def subtotal( self ):
+        return self.cantidad * self.precio
+
+    @property
+    def total( self ):
+        return self.subtotal - self.descuento
+    
+    def __str__(self):
+        return '{}-{}-{}'.format( self.id, self.cabecera, self.producto )
+    
+    class Meta:
+        verbose_name_plural = 'detalles de facturas'
+
+# signals de factura
+@receiver( post_save, sender=FacturaDetalle )
+def vigila_guardar_detalle_factura( sender, instance, **kwargs ):
+    id_producto = instance.producto.id
+    p = Producto.objects.get( id=id_producto )
+    if (p):
+        p.existencia = int(p.existencia) - int(instance.cantidad)
+        p.save()
+
+@receiver( post_delete, sender=FacturaDetalle )
+def vigila_eliminar_detalle_factura( sender, instance, **kwargs ):
+    id_producto = instance.producto.id
+    p = Producto.objects.get( id=id_producto )
+    if (p):
+        p.existencia = int(p.existencia) + int(instance.cantidad)
+        p.save()

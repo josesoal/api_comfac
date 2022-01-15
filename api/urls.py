@@ -10,7 +10,11 @@ router.register( r'proveedor', views.ProveedorViewSet )
 router.register( r'compra', views.CompraMaestroViewSet )
 router.register( r'compra-detalle', views.CompraDetalleViewSet )
 router.register( r'cliente', views.ClienteViewSet )
+router.register( r'factura', views.FacturaMaestroViewSet )
+router.register( r'factura-detalle', views.FacturaDetalleViewSet )
+
 
 urlpatterns = [
     path( '', include(router.urls) )
 ]
+

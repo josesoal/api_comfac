@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Categoria, SubCategoria, Producto, Proveedor, \
-    CompraMaestro, CompraDetalle, Cliente
+    CompraMaestro, CompraDetalle, Cliente, FacturaMaestro, FacturaDetalle
 
 class CategoriaSerializer( serializers.ModelSerializer ):
     class Meta:
@@ -52,3 +52,20 @@ class ClienteSerializer( serializers.ModelSerializer ):
     class Meta:
         model = Cliente
         fields = '__all__'
+
+class FacturaDetalleSerializer( serializers.ModelSerializer ):
+    producto_descripcion = serializers.ReadOnlyField(
+        source='producto.descripcion'
+    )
+    class Meta:
+        model = FacturaDetalle
+        fields = [
+            'id', 'cantidad', 'precio', 'descuento', 'cabecera', 
+            'producto', 'subtotal', 'total', 'producto_descripcion'
+        ]
+
+class FacturaMaestroSerializer( serializers.ModelSerializer ):
+    detalle = FacturaDetalleSerializer( many=True, read_only=True )
+    class Meta:
+        model = FacturaMaestro
+        fields = ['id', 'fecha', 'cliente', 'detalle']

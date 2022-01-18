@@ -8,42 +8,42 @@ from .models import Categoria, SubCategoria, Producto, Proveedor, \
 from . import serializer
 
 class CategoriaViewSet( viewsets.ModelViewSet ):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Categoria.objects.all().order_by('descripcion')
     serializer_class = serializer.CategoriaSerializer
 
 class SubCategoriaViewSet( viewsets.ModelViewSet ):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = SubCategoria.objects.all().order_by('descripcion')
     serializer_class = serializer.SubCategoriaSerializer
 
 class ProductoViewSet( viewsets.ModelViewSet ):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Producto.objects.all().order_by('descripcion')
     serializer_class = serializer.ProductoSerializer
 
 class ProveedorViewSet( viewsets.ModelViewSet ):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Proveedor.objects.all().order_by('nombre')
     serializer_class = serializer.ProveedorSerializer
 
 class CompraMaestroViewSet( viewsets.ModelViewSet ):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = CompraMaestro.objects.all().order_by('id')
     serializer_class = serializer.CompraMaestroSerializer
 
 class CompraDetalleViewSet( viewsets.ModelViewSet ):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = CompraDetalle.objects.all().order_by('id')
     serializer_class = serializer.CompraDetalleSerializer
 
 class ClienteViewSet( viewsets.ModelViewSet ):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Cliente.objects.all().order_by('nombre')
     serializer_class = serializer.ClienteSerializer
 
     @action( 
-        methods=['get'], detail=False, permission_classes=[], 
+        methods=['get'], detail=False, permission_classes=[IsAuthenticated], 
         url_path='by-name/(?P<nombre>[\w\ ]+)'
     )
     def by_name( self, request, pk=None, nombre=None ):
@@ -54,12 +54,12 @@ class ClienteViewSet( viewsets.ModelViewSet ):
         return Response( c_serializer.data )
 
 class FacturaMaestroViewSet( viewsets.ModelViewSet ):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = FacturaMaestro.objects.all().order_by('id')
     serializer_class = serializer.FacturaMaestroSerializer
 
 class FacturaDetalleViewSet( viewsets.ModelViewSet ):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = FacturaDetalle.objects.all().order_by('id')
     serializer_class = serializer.FacturaDetalleSerializer
 

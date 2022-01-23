@@ -131,3 +131,14 @@ Content-Type: application/json
 GET http://127.0.0.1:8000/rest/v1/producto/
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQyNTE3MzkxLCJpYXQiOjE2NDI1MTcwOTEsImp0aSI6IjEzNzE4OTBjNjFmYzRmYjE4ZTYwMzZiN2E5NjBjZDI4IiwidXNlcl9pZCI6Mn0.f_JivDgJdrxQyxf-I6Z477UtLVH04iDPggrj8ZZ0WHQ
+
+### insert proveedor
+POST http://127.0.0.1:8000/rest/v1/proveedor/
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQyNTIwODY2LCJpYXQiOjE2NDI1MjA1NjYsImp0aSI6ImNiNTY4NTc2MTUyMTQ4NjE4YTkzMTdiYTczZTM5YTU1IiwidXNlcl9pZCI6Mn0.CY5DinqpfXKYJVKFEmPcnKF6zBOlN-pdn7A-5KMa4fM
+
+{
+    "nombre": "Prueba",
+    "telefono": "951568955",
+    "email": "prueba@prueba.com" 
+}
